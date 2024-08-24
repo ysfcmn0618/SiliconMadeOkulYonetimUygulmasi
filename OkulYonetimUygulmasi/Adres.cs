@@ -8,7 +8,7 @@ namespace OkulYonetimUygulmasi
 {
     internal class Adres
     {
-          
+          //asdasd
         public string Il { get; set; }
         public string Ilce { get; set; }
         public string Mahalle { get; set; }

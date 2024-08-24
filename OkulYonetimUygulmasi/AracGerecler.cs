@@ -8,19 +8,6 @@ namespace OkulYonetimUygulmasi
 {
     internal class AracGerecler
     {
-
-        public static Ogrenci OgrenciBilgileriniAl()
-        {
-            //Ogrenci  bilgilerini alacak readlinelı metod doldurulacak
-            Ogrenci stdnt = new Ogrenci();
-            return stdnt;
-        }
-        public static Ogrenci OgrenciBilgileriniAl(Ogrenci o)
-        {
-            //Ogrenci  bilgilerini alacak readlinelı metod doldurulacak
-            Ogrenci stdnt = new Ogrenci();
-            return stdnt;
-        }
         public static bool OgrenciVarMi(List<Ogrenci> list)
         {
             if (list == null || !list.Any())
@@ -31,7 +18,6 @@ namespace OkulYonetimUygulmasi
             }
             return true;
         }
-
         /// <summary>
         /// Mesaj ile aldığı string metin ifadesi için bir girdi değeri isteyecek ve bu mesaj ifadesinin karşılığı olarak geri döndürecek
         /// </summary>
@@ -119,7 +105,7 @@ namespace OkulYonetimUygulmasi
                 Console.Write(mesaj);
                 girdi = Console.ReadLine();
                 bool tarihMi = DateTime.TryParse(girdi, out tarih);
-                if (tarihMi)
+                if (!tarihMi)
                 {
                     Console.WriteLine("Hatalı islem tekrar girin.");
                 }
@@ -130,7 +116,32 @@ namespace OkulYonetimUygulmasi
             } while (!deger);
             return tarih;
         }
-        public int SayiKontrol(string mesaj,List<Ogrenci> list)
+        public int SayiKontrol(string mesaj, List<Ogrenci> list)
+        {
+            //girilen ifade int ise tekrar veri girmesini isteyecek
+            //string ise veriyi tutacak
+            string girdi;
+            int sayi;
+            bool sayiMi = false;
+            do
+            {
+                Console.Write(mesaj);
+                girdi = Console.ReadLine();
+                sayiMi = int.TryParse(girdi, out sayi);
+                if (!sayiMi)
+                {
+                    Console.WriteLine("Hatali giris yapildi. Tekrar deneyin");
+                    continue;
+                }
+                if (!ListedeBuNumaradaOgrenciVarMi(sayi, list))
+                {
+                    Console.WriteLine("Bu numarada bir ögrenci yok.Tekrar deneyin.");
+                    continue;
+                }               
+            } while (sayiMi);
+            return sayi;
+        }
+        public int SayiKontrol(string mesaj)
         {
             //girilen ifade int ise tekrar veri girmesini isteyecek
             //string ise veriyi tutacak
@@ -147,9 +158,9 @@ namespace OkulYonetimUygulmasi
                     Console.WriteLine("Hatali giris yapildi. Tekrar deneyin");
                     continue;
                 }
-                else if (ListedeBuNumaradaOgrenciVarMi(sayi,list))
+                else if (sayi <= 0 || sayi >= 100)
                 {
-                    Console.WriteLine("Bu numarada bir ögrenci yok.Tekrar deneyin.");
+                    Console.WriteLine("Girdiginiz deger 0 ve 100 arasında olmalıdır.");
                     continue;
                 }
                 else
@@ -159,12 +170,21 @@ namespace OkulYonetimUygulmasi
             } while (!sayiMi);
             return sayi;
         }
-        public bool ListedeBuNumaradaOgrenciVarMi(int index,List<Ogrenci> list)
+        public bool ListedeBuNumaradaOgrenciVarMi(int index, List<Ogrenci> list)
         {
-            return list.Any(o => o.No==index);
-        } 
+            if (list.Find(o => o.No == index) != null)
+            {
+                return true;
+            }
+            return false;
+        }
+        public Ogrenci ListedekiOgrenci(List<Ogrenci> ogrenciler, int no)
+        {
+            return ogrenciler.FirstOrDefault(o => o.No == no);
+        }
         static public void Bilgi()
         {
+            Console.WriteLine();
             Console.WriteLine($"Menüyü tekrar listelemek için \"liste\", çıkıs yapmak için \"çıkış\" yazın.");
             Console.WriteLine();
         }

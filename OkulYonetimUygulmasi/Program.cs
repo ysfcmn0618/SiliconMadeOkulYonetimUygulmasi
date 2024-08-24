@@ -181,24 +181,6 @@ namespace OkulYonetimUygulmasi
                 Console.WriteLine(e.Message);
             }
         }
-
-
-
-
-        static void SahteVeriGir()
-        {
-            Okul.OgrenciEkle();
-            // başka öğrenciler de eklenir.
-
-            // adres
-            // ders notu
-            // kitap
-            // gibi veriler için de sahte veri oluşturulmalı
-
-
-
-
-        }
         static void Cikis()
         {
             Environment.Exit(0);

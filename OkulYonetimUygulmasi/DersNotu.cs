@@ -20,7 +20,8 @@ namespace OkulYonetimUygulmasi
         public DersNotu(string dersAdi, int not)
         {
             this.DersAdi = dersAdi;
-            this.Not = not;
-        }               
+            this.Not=not;
+        } 
+        public DersNotu() { }
     }
 }

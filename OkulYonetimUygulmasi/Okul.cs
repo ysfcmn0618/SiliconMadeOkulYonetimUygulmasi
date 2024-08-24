@@ -8,24 +8,32 @@ using static OkulYonetimUygulmasi.Ogrenci;
 namespace OkulYonetimUygulmasi
 {
     internal class Okul
-    {
-        // Okula ait herhangi bir bilginin değiştirilme işlemleri bu sınıfta yapılmalı
+    {        
         public List<Ogrenci> Ogrenciler = new List<Ogrenci>();
         public AracGerecler araclar;
-
-        public void OgrenciEkle()
+        public void YeniOgrenciEkle(int stdntNumber, string ad, string soyad, DateTime dogumTarihi, CINSIYET cinsiyet, SUBE sube)
         {
-            Ogrenci stdnt = AracGerecler.OgrenciBilgileriniAl();
-
+           Ogrenci stdnt = new Ogrenci();
+            stdnt.No=Ogrenciler.Count+1;
+            stdnt.Ad = ad;
+            stdnt.Soyad = soyad;
+            stdnt.DogumTarihi = dogumTarihi;
+            stdnt.Sube = sube;
+            stdnt.Cinsiyet = cinsiyet;
             this.Ogrenciler.Add(stdnt);
         }
-        public void OgrenciGuncelle(int stdntNumber)
+        public void OgrenciGuncelle(int stdntNumber,string ad,string soyad,DateTime dogumTarihi,CINSIYET cinsiyet,SUBE sube)
         {
             Ogrenci o = Ogrenciler.FirstOrDefault(o => o.No == stdntNumber);
-            o = araclar.OgrenciBilgileriniAl();
-            //Bu bilgileri almam lazım
-            o.OgrenciGuncelle(araclar.OgrenciBilgileriniAl());
-            // o.OgrenciGuncelle(o.Ad,o.Soyad,o.DogumTarihi,o.Cinsiyet,o.Sube);
+            o.Ad = ad;
+            o.Soyad = soyad;
+            o.DogumTarihi = dogumTarihi;
+            o.Sube = sube;
+            o.Cinsiyet = cinsiyet;            
+        }
+        public void OgrenciSil(int no)
+        {
+            Ogrenciler.RemoveAt(no);
         }
 
 

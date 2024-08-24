@@ -8,14 +8,9 @@ namespace OkulYonetimUygulmasi
 {
     internal class Adres
     {
-        Adres(string il, string ilce, string mahalle)
-        {
-            Il = il;
-            Ilce = ilce;
-            Mahalle = mahalle;
-        }
-        public string Il;
-        public string Ilce;
+          
+        public string Il { get; set; }
+        public string Ilce { get; set; }
         public string Mahalle { get; set; }
     }
 

@@ -29,6 +29,7 @@ namespace OkulYonetimUygulmasi
         }
         public Ogrenci()
         {
+
         }
         public int No;
         public string Ad;
@@ -43,7 +44,8 @@ namespace OkulYonetimUygulmasi
         }
         public SUBE Sube { get; set; }
         public CINSIYET Cinsiyet { get; set; }
-        public Adres Adres;
+        public Adres Adresi=new Adres();
+        
 
         public List<DersNotu> Notlar = new List<DersNotu>();
         public List<string> Kitaplar = new List<string>();
@@ -57,11 +59,11 @@ namespace OkulYonetimUygulmasi
             Sube = sube;
             Console.WriteLine("Ogrenci güncellendi.");
         }
-        public void AdresEkle(string il,string ilce,string mahalle)
+        public void AdresEkle(string il, string ilce, string mahalle)
         {
-            Adres.Il=il;
-            Adres.Ilce=ilce;    
-            Adres.Mahalle=mahalle;
+            Adresi.Il = il;
+            Adresi.Ilce = ilce;
+            Adresi.Mahalle = mahalle;
             Console.WriteLine("Adres Eklendi");
         }
 
@@ -136,7 +138,7 @@ namespace OkulYonetimUygulmasi
 
         public enum CINSIYET
         {
-            Empty, Kiz, Erkek
+            Empty, K, E
         }
 
     }

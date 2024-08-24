@@ -20,7 +20,17 @@ namespace OkulYonetimUygulmasi
             //Ogrenci  bilgilerini alacak readlinelı metod doldurulacak
             Ogrenci stdnt = new Ogrenci();
             return stdnt;
-        }       
+        }
+        public static bool OgrenciVarMi(List<Ogrenci> list)
+        {
+            if (list == null || !list.Any())
+            //ögrenciler listesi oluşturulmuş mu ve içinde en az 1 öge var mı kontrolü
+            {
+                Console.WriteLine("Listelenecek öğrenci yok.");
+                return false;
+            }
+            return true;
+        }
 
         /// <summary>
         /// Mesaj ile aldığı string metin ifadesi için bir girdi değeri isteyecek ve bu mesaj ifadesinin karşılığı olarak geri döndürecek
@@ -62,6 +72,7 @@ namespace OkulYonetimUygulmasi
                 if (girdi != "E" && girdi != "K")
                 {
                     Console.WriteLine("Hatalı islem tekrar girin.");
+                    continue;
                 }
                 else
                 {
@@ -119,7 +130,7 @@ namespace OkulYonetimUygulmasi
             } while (!deger);
             return tarih;
         }
-        public int SayiKontrol(string mesaj)
+        public int SayiKontrol(string mesaj,List<Ogrenci> list)
         {
             //girilen ifade int ise tekrar veri girmesini isteyecek
             //string ise veriyi tutacak
@@ -133,7 +144,12 @@ namespace OkulYonetimUygulmasi
                 sayiMi = int.TryParse(girdi, out sayi);
                 if (sayiMi)
                 {
-                    Console.WriteLine("Hatalı islem tekrar girin.");
+                    Console.WriteLine("Hatali giris yapildi. Tekrar deneyin");
+                    continue;
+                }
+                else if (ListedeBuNumaradaOgrenciVarMi(sayi,list))
+                {
+                    Console.WriteLine("Bu numarada bir ögrenci yok.Tekrar deneyin.");
                     continue;
                 }
                 else
@@ -141,8 +157,12 @@ namespace OkulYonetimUygulmasi
                     sayiMi = true;
                 }
             } while (!sayiMi);
-            return sayi;            
+            return sayi;
         }
+        public bool ListedeBuNumaradaOgrenciVarMi(int index,List<Ogrenci> list)
+        {
+            return list.Any(o => o.No==index);
+        } 
         static public void Bilgi()
         {
             Console.WriteLine($"Menüyü tekrar listelemek için \"liste\", çıkıs yapmak için \"çıkış\" yazın.");
@@ -155,14 +175,14 @@ namespace OkulYonetimUygulmasi
             {
                 Console.WriteLine();
                 Console.Write("Yapmak istediginiz islemi seçiniz: ");
-                string giris = Console.ReadLine();
+                string giris = Console.ReadLine().ToLower();
 
                 bool sayiMi = int.TryParse(giris, out int a);
                 if (sayiMi)
                 {
                     return giris;
                 }
-                if (giris == "çıkış")
+                if (giris == "çıkıs")
                 {
                     Uygulama.Cikis();
                 }
@@ -181,6 +201,6 @@ namespace OkulYonetimUygulmasi
 
                 }
             }
-        }        
+        }
     }
 }

@@ -3,14 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static OkulYonetimUygulmasi.Ogrenci;
 
 namespace OkulYonetimUygulmasi
 {
     // https://drive.google.com/file/d/1VV4iqMoI2po96cpZfGymMDAnkEeoWJNV/view?usp=sharing
     internal class Uygulama
     {
-        public static Okul school;
-        List<Ogrenci> studys = school.Ogrenciler;
+        public static Okul okul;
+        public static List<Ogrenci> ogrenciler = okul.Ogrenciler;
         public static AracGerecler araclar;
 
         public static void Cikis()
@@ -51,7 +52,7 @@ namespace OkulYonetimUygulmasi
                 switch (secim)
                 {
                     case "1":
-                        school.TumOgrenciler();
+                        TümOgrenciler();
                         break;
                     case "2":
                         SubeyeGoreOgrenciler();
@@ -60,7 +61,7 @@ namespace OkulYonetimUygulmasi
                         CinsiyeteGoreOgrenciler();
                         break;
                     case "4":
-                        TarihSonrasıDoganlar(date);
+                        TarihSonrasıDoganlar();
                         break;
                     case "5":
                         IllereGoreOgrenciler();
@@ -123,6 +124,71 @@ namespace OkulYonetimUygulmasi
                 }
             }
         }
+
+        private static void OgrencininNotları()
+        {
+            Console.WriteLine("6-Ögrencinin notlarını görüntüle ---------------------------------------------");
+            int girdi = araclar.SayiKontrol("Ögrencinin numarasi:",ogrenciler);
+            Ogrenci ogre = ogrenciler.Find(o => o.No == girdi);
+            Console.WriteLine("Dersin Adi     Notu");
+            Console.WriteLine("--------------------");
+            foreach (var o in ogre.Notlar)
+            {
+                Console.WriteLine($"{o.DersAdi}         {o.Not}");
+            }
+        }
+
+        private static void IllereGoreOgrenciler()
+        {
+            Console.WriteLine("5-Illere Göre Ögrencileri Listele --------------------------------------------");
+            Console.WriteLine();
+            
+            if (AracGerecler.OgrenciVarMi(ogrenciler))
+            {
+                Console.WriteLine("Sube      No        Adı Soyadı           Sehir          Semt");
+                Console.WriteLine("---------------------------------------------------------------------------");
+                ogrenciler.OrderBy(o => o.Adres.Il);
+                foreach (var o in ogrenciler)
+                {
+                    Console.WriteLine($"{o.Sube}         {o.No}         {o.Ad + " " + o.Soyad}          {o.Adres.Il}         {o.Adres.Ilce}");
+                }
+            }
+        }
+
+        private static void TarihSonrasıDoganlar()
+        {
+            Console.WriteLine("4-Dogum Tarihine Göre Ögrencileri Listele -------------------------------------");
+            DateTime date = araclar.TarihKontrol("Hangi tarihten sonraki ögrencileri listelemek istersiniz:");
+            List<Ogrenci> newList = ogrenciler.Where(s => s.DogumTarihi > date).ToList();
+            if (AracGerecler.OgrenciVarMi(newList))
+            {
+                Console.WriteLine();
+                Console.WriteLine("Şube      No        Adı Soyadı               Not Ort.       Okudugu Kitap Say.");
+                Console.WriteLine("---------------------------------------------------------------------------");
+                foreach (var o in newList)
+                {
+                    Console.WriteLine($"{o.Sube}         {o.No}         {o.Ad + " " + o.Soyad}              {o.Ortalama}           {o.Kitaplar.Count}   ");
+                }
+            }
+        }
+
+        private static void CinsiyeteGoreOgrenciler()
+        {
+            Console.WriteLine("3-Cinsiyete Göre Ögrencileri Listele -----------------------------------------")
+            CINSIYET cinsiyet = araclar.CinsiyetKontrol("Listelemek istediginiz cinsiyeti girin (K/E):");
+            List<Ogrenci> newList = ogrenciler.Where(s => s.Cinsiyet == cinsiyet).ToList();
+            if (AracGerecler.OgrenciVarMi(newList))
+            {
+                Console.WriteLine();
+                Console.WriteLine("Şube      No        Adı Soyadı               Not Ort.       Okudugu Kitap Say.");
+                Console.WriteLine("---------------------------------------------------------------------------");
+                foreach (var o in newList)
+                {
+                    Console.WriteLine($"{o.Sube}         {o.No}         {o.Ad + " " + o.Soyad}              {o.Ortalama}           {o.Kitaplar.Count}   ");
+                }
+            }
+        }
+
         public Ogrenci OgrenciBilgileriniAl()
         {
             Ogrenci o = new Ogrenci();
@@ -132,7 +198,76 @@ namespace OkulYonetimUygulmasi
             o.DogumTarihi = araclar.TarihKontrol("Ögrencinin dogum tarihi:");
             o.Cinsiyet = araclar.CinsiyetKontrol("Ögrencinin cinsiyeti (K/E):");
             o.Sube = araclar.SubeKontrol("Ögrencinin subesi (A/B/C):");
-            return o;  
+            return o;
+        }
+        public static void SubeyeGoreOgrenciler()
+        {
+            Console.WriteLine("2-Subeye Göre Ögrencileri Listele --------------------------------------------");
+            SUBE sube = araclar.SubeKontrol("Listelemek istediginiz subeyi girin (A/B/C):");
+            List<Ogrenci> newList = ogrenciler.Where(s => s.Sube == sube).ToList();
+            if (AracGerecler.OgrenciVarMi(newList))
+            {
+                Console.WriteLine();
+                Console.WriteLine("Şube      No        Adı Soyadı               Not Ort.       Okudugu Kitap Say.");
+                Console.WriteLine("---------------------------------------------------------------------------");
+                foreach (var o in newList)
+                {
+                    Console.WriteLine($"{o.Sube}         {o.No}         {o.Ad + " " + o.Soyad}              {o.Ortalama}           {o.Kitaplar.Count}   ");
+                }
+            }
+        }
+        public static void TümOgrenciler()
+        {
+            Console.WriteLine("1-Bütün Öğrencileri Listele --------------------------------------------------");
+            Console.WriteLine();
+            Console.WriteLine("Şube      No        Adı Soyadı               Not Ort.       Okudugu Kitap Say.");
+            Console.WriteLine("---------------------------------------------------------------------------");
+
+            if (AracGerecler.OgrenciVarMi(ogrenciler))
+            {
+                foreach (var o in ogrenciler)
+                {
+                    Console.WriteLine($"{o.Sube}         {o.No}         {o.Ad + " " + o.Soyad}              {o.Ortalama}           {o.Kitaplar.Count}   ");
+                }
+            }
+        }
+        public static void SubedekiEnyuksekNotlu5Ogrenci()
+        {
+            Console.WriteLine("10-Subedeki en basarılı 5 ögrenciyi listele -----------------------------------");
+
+            if (ogrenciler == null || !ogrenciler.Any())
+            //ögrenciler listesi oluşturulmuş mu ve içinde en az 1 öge var mı kontrolü
+            {
+                Console.WriteLine("Listelenecek öğrenci yok.");
+                return;
+            }
+            List<Ogrenci> besOgrenci = Okul.SubedekiEnyuksekNotlu5Ogrenci(ogrenciler);
+
+
+            //Ogrenci.SUBE secilenSube = araclar.SubeKontrol("\"Listelemek istediğiniz şubeyi girin (A/B/C): \"");
+            //var subedeenYuksekNotlu5Ogrenci = ogrenciler.OrderByDescending(o => o.Ortalama)  // Not ortalamasına göre azalan sırada sıralar
+            //                                         .Take(5)  // İlk 5 öğrenciyi alır
+            //                                            .ToList();
+            //okul.SubedekiEnyuksekNotlu5Ogrenci(secilenSube);
+        }
+        public static void SubedekiEnDusukNotlu3Ogrenci()
+        {
+            Console.WriteLine("11-Subedeki en basarısız 3 ögrenciyi listele ----------------------------------");
+
+            SUBE secilenSube = SubeSecimi();
+            okul.SubedekiEndusukNotlu3Ogrenci(secilenSube);
+        }
+        public static void OkuldakiEnYuksekNotlu5Ogrenci()
+        {
+            Console.WriteLine("8-Okuldaki en basarılı 5 ögrenciyi listele -----------------------------------");
+
+            school.OkuldakiEnyuksekNotlu5Ogrenci();
+        }
+        public static void OkuldakiEnDusukNotlu3Ogrenci()
+        {
+            Console.WriteLine("9-Okuldaki en basarısız 3 ögrenciyi listele ----------------------------------");
+
+            school.OkuldakiEndusukNotlu3Ogrenci();
         }
 
     }

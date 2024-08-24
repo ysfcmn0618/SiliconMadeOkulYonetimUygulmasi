@@ -261,13 +261,13 @@ namespace OkulYonetimUygulmasi
         {
             Console.WriteLine("8-Okuldaki en basarılı 5 ögrenciyi listele -----------------------------------");
 
-            school.OkuldakiEnyuksekNotlu5Ogrenci();
+            okul.OkuldakiEnyuksekNotlu5Ogrenci();
         }
         public static void OkuldakiEnDusukNotlu3Ogrenci()
         {
             Console.WriteLine("9-Okuldaki en basarısız 3 ögrenciyi listele ----------------------------------");
 
-            school.OkuldakiEndusukNotlu3Ogrenci();
+            okul.OkuldakiEndusukNotlu3Ogrenci();
         }
 
     }

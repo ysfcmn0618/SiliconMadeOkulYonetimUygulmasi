@@ -12,16 +12,15 @@ namespace OkulYonetimUygulmasi
         public string DersAdi;
         public int Not;
 
+        /// <summary>
+        /// Bu constructure yapısı DersNotu clasının paramaetleriyle yeni bir nesne oluşturulmasını sağlar.
+        /// </summary>
+        /// <param name="dersAdi"></param>
+        /// <param name="not"></param>
         public DersNotu(string dersAdi, int not)
         {
             this.DersAdi = dersAdi;
             this.Not = not;
-        }
-
-        public void DersNotuGir(int not,string dersAdi)
-        {
-            Not = not;
-            DersAdi = dersAdi;
-        }
+        }               
     }
 }

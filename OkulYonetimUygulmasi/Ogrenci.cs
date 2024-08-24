@@ -41,6 +41,18 @@ namespace OkulYonetimUygulmasi
         {
             Kitaplar.Add(bookName);
         }
+        /// <summary>
+        /// dersadi ve nott olarak iki değişken alır dersAdi not girilecek olan dersin adını ifade eder.
+        /// not değişkeni derse verilecek olan notu ifa eder. Ve bu method Öğrencinin Notlar listesine bu değişkenlerle yeni bir not DersNotu ekler.
+        /// </summary>
+        /// <param name="dersAdi"></param>
+        /// <param name="not"></param>
+        public void DersNotuEkle(string dersAdi,int not)
+        {
+            DersNotu dn = new DersNotu(dersAdi,not);
+            Notlar.Add(dn);
+            Console.WriteLine("Ders Başarı şekilde eklendi");
+        }
 
         /// <summary>
         /// Öğrenciye ait bütün dersleri ve notlarını ekrana yazar

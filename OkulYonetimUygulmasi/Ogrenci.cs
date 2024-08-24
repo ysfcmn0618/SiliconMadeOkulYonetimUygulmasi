@@ -8,7 +8,16 @@ using System.Threading.Tasks;
 namespace OkulYonetimUygulmasi
 {
     internal class Ogrenci
-    {      
+    {
+        /// <summary>
+        /// Bu constructure yapısı parametreli Öğrenci nesnesi oluşturmaya yarar.
+        /// </summary>
+        /// <param name="no"></param>
+        /// <param name="ad"></param>
+        /// <param name="soyad"></param>
+        /// <param name="dogumTarihi"></param>
+        /// <param name="cinsiyet"></param>
+        /// <param name="sube"></param>
         public Ogrenci(int no, string ad, string soyad, DateTime dogumTarihi, CINSIYET cinsiyet, SUBE sube)
         {
             No = no;
@@ -18,11 +27,13 @@ namespace OkulYonetimUygulmasi
             Cinsiyet = cinsiyet;
             Sube = sube;
         }
-
-        public int No { get; set; }
-        public string Ad { get; set; }
-        public string Soyad { get; set; }
-        public DateTime DogumTarihi { get; set; }
+        public Ogrenci()
+        {
+        }
+        public int No;
+        public string Ad;
+        public string Soyad;
+        public DateTime DogumTarihi;
         public float Ortalama
         {
             get
@@ -32,10 +43,27 @@ namespace OkulYonetimUygulmasi
         }
         public SUBE Sube { get; set; }
         public CINSIYET Cinsiyet { get; set; }
-        public Adres Adresi;
+        public Adres Adres;
 
         public List<DersNotu> Notlar = new List<DersNotu>();
         public List<string> Kitaplar = new List<string>();
+
+        public void OgrenciGuncelle(string ad, string soyad, DateTime dogumTrihi, CINSIYET cinsiyet, SUBE sube)
+        {
+            Ad = ad;
+            Soyad = soyad;
+            DogumTarihi = dogumTrihi;
+            Cinsiyet = cinsiyet;
+            Sube = sube;
+            Console.WriteLine("Ogrenci güncellendi.");
+        }
+        public void AdresEkle(string il,string ilce,string mahalle)
+        {
+            Adres.Il=il;
+            Adres.Ilce=ilce;    
+            Adres.Mahalle=mahalle;
+            Console.WriteLine("Adres Eklendi");
+        }
 
         public void KitapEkle(string bookName)
         {
@@ -47,9 +75,9 @@ namespace OkulYonetimUygulmasi
         /// </summary>
         /// <param name="dersAdi"></param>
         /// <param name="not"></param>
-        public void DersNotuEkle(string dersAdi,int not)
+        public void DersNotuEkle(string dersAdi, int not)
         {
-            DersNotu dn = new DersNotu(dersAdi,not);
+            DersNotu dn = new DersNotu(dersAdi, not);
             Notlar.Add(dn);
             Console.WriteLine("Ders Başarı şekilde eklendi");
         }
@@ -92,7 +120,7 @@ namespace OkulYonetimUygulmasi
             }
 
         }
-       
+
         /// <summary>
         /// Kitaplar listesinde eklenen en son kitabı döndürür
         /// </summary>

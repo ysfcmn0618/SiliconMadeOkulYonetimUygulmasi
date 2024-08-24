@@ -11,7 +11,8 @@ namespace OkulYonetimUygulmasi
     {
         public static Okul school;
         List<Ogrenci> studys = school.Ogrenciler;
-        
+        public static AracGerecler araclar;
+
         public static void Cikis()
         {
             Environment.Exit(0);
@@ -38,6 +39,7 @@ namespace OkulYonetimUygulmasi
             Console.WriteLine("18 - Öğrencinin adresini gir(Öğrencinin adresi farklı bir class olacak ");
             Console.WriteLine("19 - Öğrencinin okuduğu kitabı gir");
             Console.WriteLine("20 - Öğrencinin notunu gir(Metot ile giriş yapılacak");
+
         }
         public static void Uygulamaa()
         {
@@ -119,11 +121,18 @@ namespace OkulYonetimUygulmasi
 
 
                 }
-
             }
-
-
-
+        }
+        public Ogrenci OgrenciBilgileriniAl()
+        {
+            Ogrenci o = new Ogrenci();
+            //o.No = studys.Last().No + 1;
+            o.Ad = araclar.MetinKontrol("Ögrencinin adı: ");
+            o.Soyad = araclar.MetinKontrol("Ögrencinin soyadı: ");
+            o.DogumTarihi = araclar.TarihKontrol("Ögrencinin dogum tarihi:");
+            o.Cinsiyet = araclar.CinsiyetKontrol("Ögrencinin cinsiyeti (K/E):");
+            o.Sube = araclar.SubeKontrol("Ögrencinin subesi (A/B/C):");
+            return o;  
         }
 
     }

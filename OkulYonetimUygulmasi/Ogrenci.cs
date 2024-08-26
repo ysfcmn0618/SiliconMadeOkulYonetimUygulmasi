@@ -39,7 +39,9 @@ namespace OkulYonetimUygulmasi
         {
             get
             {
+                if (Notlar.Count!=0) 
                 return Notlar.Average(n => (float)n.Not);
+                else return 0;
             }
         }
         public SUBE Sube { get; set; }
@@ -64,7 +66,6 @@ namespace OkulYonetimUygulmasi
             Adresi.Il = il;
             Adresi.Ilce = ilce;
             Adresi.Mahalle = mahalle;
-            Console.WriteLine("Adres Eklendi");
         }
 
         public void KitapEkle(string bookName)
@@ -81,7 +82,6 @@ namespace OkulYonetimUygulmasi
         {
             DersNotu dn = new DersNotu(dersAdi, not);
             Notlar.Add(dn);
-            Console.WriteLine("Ders Başarı şekilde eklendi");
         }
 
         /// <summary>

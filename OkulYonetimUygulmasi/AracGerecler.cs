@@ -137,7 +137,8 @@ namespace OkulYonetimUygulmasi
                 {
                     Console.WriteLine("Bu numarada bir ögrenci yok.Tekrar deneyin.");
                     continue;
-                }               
+                }
+                sayiMi = false;
             } while (sayiMi);
             return sayi;
         }
@@ -153,7 +154,7 @@ namespace OkulYonetimUygulmasi
                 Console.Write(mesaj);
                 girdi = Console.ReadLine();
                 sayiMi = int.TryParse(girdi, out sayi);
-                if (sayiMi)
+                if (!sayiMi)
                 {
                     Console.WriteLine("Hatali giris yapildi. Tekrar deneyin");
                     continue;
@@ -184,9 +185,7 @@ namespace OkulYonetimUygulmasi
         }
         static public void Bilgi()
         {
-            Console.WriteLine();
             Console.WriteLine($"Menüyü tekrar listelemek için \"liste\", çıkıs yapmak için \"çıkış\" yazın.");
-            Console.WriteLine();
         }
         public static string SecimAl()
         {

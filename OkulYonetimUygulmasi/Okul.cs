@@ -9,7 +9,7 @@ namespace OkulYonetimUygulmasi
 {
     internal class Okul
     {        
-        public List<Ogrenci> Ogrenciler = new List<Ogrenci>();
+        public static List<Ogrenci> Ogrenciler = new List<Ogrenci>();
         public AracGerecler araclar;
         public void YeniOgrenciEkle(int stdntNumber, string ad, string soyad, DateTime dogumTarihi, CINSIYET cinsiyet, SUBE sube)
         {
@@ -20,7 +20,7 @@ namespace OkulYonetimUygulmasi
             stdnt.DogumTarihi = dogumTarihi;
             stdnt.Sube = sube;
             stdnt.Cinsiyet = cinsiyet;
-            this.Ogrenciler.Add(stdnt);
+            Ogrenciler.Add(stdnt);
         }
         public void OgrenciGuncelle(int stdntNumber,string ad,string soyad,DateTime dogumTarihi,CINSIYET cinsiyet,SUBE sube)
         {
@@ -39,7 +39,7 @@ namespace OkulYonetimUygulmasi
 
         public void NotEkle(int no, string ders, int not)
         {
-            Ogrenci o = this.Ogrenciler.Where(a => a.No == no).FirstOrDefault();
+            Ogrenci o = Ogrenciler.Where(a => a.No == no).FirstOrDefault();
 
             if (o != null)
             {
